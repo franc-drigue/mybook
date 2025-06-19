@@ -37,7 +37,18 @@ class HomeFragment : Fragment() {
         //adapter
         binding.recyclerviewBooks.adapter = adapter
 
+        // função para buscar todos os livros, implementada no homeViewModal
+        homeViewModel.getAllBooks();
+
+        setObserver();
+
         return binding.root
+    }
+
+    private fun setObserver() {
+        homeViewModel.books.observe(viewLifecycleOwner) {
+            adapter.updateBooks(it)
+        }
     }
 
     override fun onDestroyView() {

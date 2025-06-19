@@ -9,7 +9,7 @@ import com.example.mybooks.ui.viewholder.BookViewHolder
 
 class BookAdapter: RecyclerView.Adapter<BookViewHolder>() {
 
-    private val bookList = mutableListOf<BookEntity>()
+    private var bookList = listOf<BookEntity>()
 
     // cria o elemento de layout
     override fun onCreateViewHolder(
@@ -32,5 +32,10 @@ class BookAdapter: RecyclerView.Adapter<BookViewHolder>() {
     override fun getItemCount(): Int {
         //poderia usar o bookList.count( )
         return  bookList.size
+    }
+
+    fun updateBooks(list: List<BookEntity>) {
+        bookList = list;
+        notifyDataSetChanged();
     }
 }
