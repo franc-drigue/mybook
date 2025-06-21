@@ -6,10 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mybooks.R
 import com.example.mybooks.databinding.FragmentHomeBinding
+import com.example.mybooks.listener.BookListener
 import com.example.mybooks.ui.adapter.BookAdapter
-import com.example.mybooks.viewmodels.HomeViewModel
+import com.example.mybooks.viewmodel.HomeViewModel
 
 class HomeFragment : Fragment() {
 
@@ -40,9 +43,20 @@ class HomeFragment : Fragment() {
         // função para buscar todos os livros, implementada no homeViewModal
         homeViewModel.getAllBooks();
 
+        attachListener();
+
         setObserver();
 
         return binding.root
+    }
+
+    private fun attachListener() {
+        adapter.attachListener(object: BookListener {
+            override fun onClick(id: Int) {
+                //Realizar navegação
+                findNavController().navigate(R.id.navigation_details)
+            }
+        })
     }
 
     private fun setObserver() {

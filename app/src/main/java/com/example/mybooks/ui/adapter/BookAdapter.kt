@@ -5,11 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mybooks.databinding.ItemBookBinding
 import com.example.mybooks.entity.BookEntity
+import com.example.mybooks.listener.BookListener
 import com.example.mybooks.ui.viewholder.BookViewHolder
 
 class BookAdapter: RecyclerView.Adapter<BookViewHolder>() {
 
-    private var bookList = listOf<BookEntity>()
+    private var bookList = listOf<BookEntity>();
+    private lateinit var bookListener: BookListener
 
     // cria o elemento de layout
     override fun onCreateViewHolder(
@@ -17,7 +19,7 @@ class BookAdapter: RecyclerView.Adapter<BookViewHolder>() {
         viewType: Int
     ): BookViewHolder {
         val view = ItemBookBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return BookViewHolder(view)
+        return BookViewHolder(view, bookListener)
     }
 
     // Responsável em vincular os dados com o layout
@@ -37,5 +39,9 @@ class BookAdapter: RecyclerView.Adapter<BookViewHolder>() {
     fun updateBooks(list: List<BookEntity>) {
         bookList = list;
         notifyDataSetChanged();
+    }
+
+    fun attachListener(listener: BookListener) {
+        bookListener = listener
     }
 }
