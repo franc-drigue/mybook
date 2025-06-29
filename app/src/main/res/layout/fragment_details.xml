@@ -90,6 +90,7 @@
         android:layout_height="wrap_content"/>
 
     <Button
+        android:id="@+id/button_remove_book"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:backgroundTint="@color/red"

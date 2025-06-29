@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.mybooks.R
@@ -28,7 +30,7 @@ class DetailsFragment : Fragment() {
 
         viewModel.getBookById(bookId);
 
-        setClickButtonIsBack();
+        setListeners();
         setObserve();
 
         return binding.root
@@ -43,19 +45,52 @@ class DetailsFragment : Fragment() {
 
             setGenreBackground(it.genre)
         }
+
+        viewModel.bookRemove.observe(viewLifecycleOwner) {
+            if (it) {
+                Toast.makeText(
+                    requireContext(),
+                    R.string.msg_removed_successfully,
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                requireActivity().supportFragmentManager.popBackStack()
+            }
+        }
     }
 
     private fun setGenreBackground(genre: String) {
-        when(genre) {
+        when (genre) {
             "Terror" -> binding.categoryGenre.setBackgroundResource(R.drawable.rounded_label_red)
             "Fantasia" -> binding.categoryGenre.setBackgroundResource(R.drawable.rounded_label_fantasy)
             else -> binding.categoryGenre.setBackgroundResource(R.drawable.rounded_label_teal)
         }
     }
 
-    private fun setClickButtonIsBack(){
+    private fun setListeners() {
         binding.icBack.setOnClickListener {
             requireActivity().supportFragmentManager.popBackStack()
         }
+
+        binding.buttonRemoveBook.setOnClickListener { handleRemove() }
+
+        binding.checkboxIsFavorite.setOnClickListener { handleFavorite() }
+    }
+
+    private fun handleRemove() {
+        val builder = AlertDialog.Builder(requireContext());
+        builder.setMessage(getString(R.string.dialog_message_delete_item))
+        builder.setPositiveButton(getString(R.string.dialog_positive_button_yes)) { _, _ ->
+            //Implementar remoção
+            viewModel.deleteBook(bookId)
+        }
+        builder.setNegativeButton(getString(R.string.dialog_negative_button_no)) { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.create().show()
+    }
+
+    private fun handleFavorite() {
+        viewModel.favorite(bookId)
     }
 }
