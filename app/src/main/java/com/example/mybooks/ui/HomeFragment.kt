@@ -64,6 +64,11 @@ class HomeFragment : Fragment() {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+        homeViewModel.getAllBooks()
+    }
+
     private fun setObserver() {
         homeViewModel.books.observe(viewLifecycleOwner) {
             adapter.updateBooks(it)

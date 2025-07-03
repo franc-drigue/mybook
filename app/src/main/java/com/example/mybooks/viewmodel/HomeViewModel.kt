@@ -12,7 +12,7 @@ class HomeViewModel : ViewModel() {
 
     val books: LiveData<List<BookEntity>> = _books;
 
-    private val repository: BookRepository = BookRepository();
+    private val repository: BookRepository = BookRepository.getInstance();
 
     fun getAllBooks() {
       _books.value = repository.getAllBooks();
