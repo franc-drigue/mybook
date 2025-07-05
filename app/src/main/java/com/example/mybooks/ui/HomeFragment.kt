@@ -61,6 +61,11 @@ class HomeFragment : Fragment() {
 
                 findNavController().navigate(R.id.navigation_details, args = bundle)
             }
+
+            override fun onFavoriteClick(id: Int) {
+                homeViewModel.favorite(id);
+                homeViewModel.getAllBooks();
+            }
         })
     }
 

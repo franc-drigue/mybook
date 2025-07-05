@@ -36,11 +36,13 @@ class BookAdapter: RecyclerView.Adapter<BookViewHolder>() {
         return  bookList.size
     }
 
+    // Atualiza o Layout
     fun updateBooks(list: List<BookEntity>) {
         bookList = list;
         notifyDataSetChanged();
     }
 
+    // Função criada para a interação do click na homeFragment e o BookViewHolder
     fun attachListener(listener: BookListener) {
         bookListener = listener
     }
