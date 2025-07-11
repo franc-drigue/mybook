@@ -9,7 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.mybooks.R
-import com.example.mybooks.consts.Consts
+import com.example.mybooks.consts.BookConsts
 import com.example.mybooks.databinding.FragmentDetailsBinding
 import com.example.mybooks.viewmodel.DetailsViewModel
 
@@ -26,7 +26,7 @@ class DetailsFragment : Fragment() {
     ): View {
         _binding = FragmentDetailsBinding.inflate(inflater, container, false)
 
-        bookId = arguments?.getInt(Consts.KEY.BOOK_ID) ?: 0
+        bookId = arguments?.getInt(BookConsts.KEY.BOOK_ID) ?: 0
 
         viewModel.getBookById(bookId);
 

@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mybooks.R
-import com.example.mybooks.consts.Consts
+import com.example.mybooks.consts.BookConsts
 import com.example.mybooks.databinding.FragmentFavoriteBinding
 import com.example.mybooks.listener.BookListener
 import com.example.mybooks.ui.adapter.BookAdapter
@@ -71,7 +71,7 @@ class FavoriteFragment : Fragment() {
                 //Realizar navegação
 
                 var bundle: Bundle = Bundle()
-                bundle.putInt(Consts.KEY.BOOK_ID, id)
+                bundle.putInt(BookConsts.KEY.BOOK_ID, id)
 
                 findNavController().navigate(R.id.navigation_details, args = bundle)
             }

@@ -1,6 +1,6 @@
 package com.example.mybooks.consts
 
-class Consts private constructor(){
+class BookConsts private constructor(){
     object KEY {
         const val BOOK_ID = "bookId"
     }
