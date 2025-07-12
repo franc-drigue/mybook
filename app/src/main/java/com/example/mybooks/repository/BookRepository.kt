@@ -1,6 +1,7 @@
 package com.example.mybooks.repository
 
 import android.content.Context
+import com.example.mybooks.consts.DatabaseConsts
 import com.example.mybooks.entity.BookEntity
 
 
@@ -11,7 +12,7 @@ class BookRepository private constructor(context: Context){
     private val books = mutableListOf<BookEntity>()
 
     init {
-        books.addAll(getInitalBooks())
+        database.readableDatabase
     }
 
     companion object{
@@ -27,32 +28,26 @@ class BookRepository private constructor(context: Context){
         }
     }
 
-    private fun getInitalBooks(): List<BookEntity> {
-        return listOf(
-            BookEntity(1, "To Kill a Mockingbird", "Harper Lee", true, "Ficção"),
-            BookEntity(2, "Dom Casmurro", "Machado de Assis", false, "Romance"),
-            BookEntity(3, "O Hobbit", "J.R.R. Tolkien", true, "Fantasia"),
-            BookEntity(4, "Cem Anos de Solidão", "Gabriel García Márquez", false, "Romance"),
-            BookEntity(5, "O Pequeno Príncipe", "Antoine de Saint-Exupéry", false, "Fantasia"),
-            BookEntity(6, "Crime e Castigo", "Fiódor Dostoiévski", false, "Ficção policial"),
-            BookEntity(7, "Frankenstein", "Mary Shelley", false, "Terror"),
-            BookEntity(8, "Harry Potter e a Pedra Filosofal", "J.K. Rowling", false, "Fantasia"),
-            BookEntity(9, "Neuromancer", "William Gibson", false, "Cyberpunk"),
-            BookEntity(10, "Senhor dos Anéis", "J.R.R. Tolkien", false, "Fantasia"),
-            BookEntity(11, "Drácula", "Bram Stoker", false, "Terror"),
-            BookEntity(12, "Orgulho e Preconceito", "Jane Austen", false, "Romance"),
-            BookEntity(13, "Harry Potter e a Câmara Secreta", "J.K. Rowling", false, "Fantasia"),
-            BookEntity(14, "As Crônicas de Nárnia", "C.S. Lewis", false, "Fantasia"),
-            BookEntity(15, "O Código Da Vinci", "Dan Brown", false, "Mistério"),
-            BookEntity(16, "It: A Coisa", "Stephen King", false, "Terror"),
-            BookEntity(17, "Moby Dick", "Herman Melville", true, "Aventura"),
-            BookEntity(18, "O Nome do Vento", "Patrick Rothfuss", true, "Fantasia"),
-            BookEntity(19, "O Conde de Monte Cristo", "Alexandre Dumas", true, "Aventura"),
-            BookEntity(20, "Os Miseráveis", "Victor Hugo", false, "Romance")
-        )
-    }
+
 
     fun getAllBooks(): List<BookEntity>{
+        val db = database.readableDatabase
+        val books = mutableListOf<BookEntity>()
+
+        val cursor = db.query(DatabaseConsts.BOOK.TABLE_NAME, null, null, null, null, null, null)
+
+        cursor?.use {
+            while (it.moveToNext()) {
+                val id = it.getInt(it.getColumnIndexOrThrow(DatabaseConsts.BOOK.COLUMNS.ID))
+                val title = it.getString(it.getColumnIndexOrThrow(DatabaseConsts.BOOK.COLUMNS.TITLE))
+                val author = it.getString(it.getColumnIndexOrThrow(DatabaseConsts.BOOK.COLUMNS.AUTHOR))
+                val genre = it.getString(it.getColumnIndexOrThrow(DatabaseConsts.BOOK.COLUMNS.GENRE))
+                val favorite = it.getInt(it.getColumnIndexOrThrow(DatabaseConsts.BOOK.COLUMNS.FAVORITE))
+                books.add(BookEntity(id, title, author, favorite == 1, genre))
+            }
+        }
+
+        db.close()
         return books
     }
 
