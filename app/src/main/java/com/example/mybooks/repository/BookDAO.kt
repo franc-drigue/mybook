@@ -6,12 +6,13 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.example.mybooks.entity.BookEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BookDAO {
 
     @Query("SELECT * FROM Book")
-    fun getAllBooks(): List<BookEntity>
+    fun getAllBooks(): Flow<List<BookEntity>>
 
     @Query("SELECT * FROM Book WHERE favorite = 1")
     fun getFavoriteBooks(): List<BookEntity>
@@ -26,5 +27,5 @@ interface BookDAO {
     fun delete(book: BookEntity): Int
 
     @Insert
-    fun insert(book: BookEntity)
+    fun insert(books: List<BookEntity>)
 }

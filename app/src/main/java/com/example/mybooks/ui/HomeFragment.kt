@@ -42,7 +42,7 @@ class HomeFragment : Fragment() {
         binding.recyclerviewBooks.adapter = adapter
 
         // função para buscar todos os livros, implementada no homeViewModal
-        homeViewModel.getAllBooks();
+        //homeViewModel.getAllBooks();
 
         attachListener();
 
@@ -64,14 +64,14 @@ class HomeFragment : Fragment() {
 
             override fun onFavoriteClick(id: Int) {
                 homeViewModel.favorite(id);
-                homeViewModel.getAllBooks();
+                //homeViewModel.getAllBooks();
             }
         })
     }
 
     override fun onResume() {
         super.onResume()
-        homeViewModel.getAllBooks()
+        //homeViewModel.getAllBooks()
     }
 
     private fun setObserver() {
