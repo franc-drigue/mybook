@@ -44,7 +44,7 @@ class FavoriteFragment : Fragment() {
         binding.recyclerviewBooksFavorite.adapter = adapter
 
         // função para buscar todos os livros, implementada no homeViewModal
-        favoriteViewModel.getAllBooksFavorite();
+        //favoriteViewModel.getAllBooksFavorite();
 
         attachListener();
 
@@ -61,7 +61,7 @@ class FavoriteFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        favoriteViewModel.getAllBooksFavorite()
+        //favoriteViewModel.getAllBooksFavorite()
     }
 
 
@@ -78,7 +78,7 @@ class FavoriteFragment : Fragment() {
 
             override fun onFavoriteClick(id: Int) {
                 favoriteViewModel.favorite(id);
-                favoriteViewModel.getAllBooksFavorite();
+                //favoriteViewModel.getAllBooksFavorite();
             }
         })
     }

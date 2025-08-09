@@ -26,7 +26,7 @@ abstract class BookDatabase: RoomDatabase() {
                     instance = Room.databaseBuilder(context, BookDatabase::class.java, DATABASE_NAME)
                         .addMigrations(Migrations.migration)
                         .addCallback(DatabaseCallback(context))
-                        .allowMainThreadQueries()
+                        //.allowMainThreadQueries()
                         .build()
                 }
             }

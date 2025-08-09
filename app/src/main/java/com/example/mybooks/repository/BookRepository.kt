@@ -86,7 +86,7 @@ class BookRepository private constructor(context: Context) {
 
 
     // Retorna todos os livros marcados como favoritos
-    fun getFavoriteBooks(): List<BookEntity> {
+    fun getFavoriteBooks(): Flow<List<BookEntity>> {
 //        val db = database.readableDatabase
 //        val books = mutableListOf<BookEntity>()
 //
@@ -123,7 +123,7 @@ class BookRepository private constructor(context: Context) {
 
 
     // Busca um livro pelo o id
-    fun getBookById(id: Int): BookEntity {
+    suspend fun getBookById(id: Int): BookEntity {
 //        val db = database.readableDatabase
 //        var book: BookEntity? = null
 //
@@ -160,7 +160,7 @@ class BookRepository private constructor(context: Context) {
 
 
     // Remove um livro pelo o id
-    fun deleteBook(id: Int): Boolean {
+    suspend fun deleteBook(id: Int): Boolean {
 //        val db = database.writableDatabase
 //
 //        val rawDeleted = db.delete(
@@ -178,7 +178,7 @@ class BookRepository private constructor(context: Context) {
 
 
     // Alterna entre true e false o atributo 'favorite'
-    fun toggleFavoriteStatus(id: Int) {
+    suspend fun toggleFavoriteStatus(id: Int) {
 //        val book = getBookById(id)
 //        val newFavoriteStatus = if (book?.favorite == true) 0 else 1
 //
